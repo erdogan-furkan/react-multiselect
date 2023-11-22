@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import classes from "./styles.module.scss";
+import Button from "../button";
 
 type Item = {
   value: string;
@@ -9,7 +10,7 @@ type Item = {
 interface Props {
   items: Array<Item>;
   title: string;
-  buttonText?: string
+  buttonText?: string;
 }
 
 const MultiSelect: FC<Props> = ({ items, title, buttonText }) => {
@@ -57,11 +58,13 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText }) => {
     <div className={classes.wrapper}>
       <h1 className={classes.title}>{title}</h1>
 
+      <div>
+        <input type="text" />
+      </div>
+
       <ul className={classes.itemsWrapper}>{renderItems}</ul>
 
-      <button className={classes.submitButton}>
-        {buttonText ?? "Ara"}
-      </button>
+      <Button className={classes.submitButton}>{buttonText ?? "Ara"}</Button>
     </div>
   );
 };

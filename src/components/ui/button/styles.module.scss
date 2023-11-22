@@ -1,0 +1,14 @@
+.submitButton {
+  background-color: var(--primary);
+  color: var(--background);
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0.25rem;
+  transition: 0.25s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
