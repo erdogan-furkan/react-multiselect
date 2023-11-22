@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import classes from "./styles.module.scss";
-import Button from "../button";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import SearchIcon from "@/assets/search.svg";
 
 type Item = {
   value: string;
@@ -11,9 +13,10 @@ interface Props {
   items: Array<Item>;
   title: string;
   buttonText?: string;
+  searchText?: string;
 }
 
-const MultiSelect: FC<Props> = ({ items, title, buttonText }) => {
+const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
   const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>([]);
 
   const handleOnClickItem = (value: Item["value"]) => [
@@ -58,9 +61,10 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText }) => {
     <div className={classes.wrapper}>
       <h1 className={classes.title}>{title}</h1>
 
-      <div>
-        <input type="text" />
-      </div>
+      <Input
+        placeholder={searchText ?? "Kategori ara..."}
+        icon={<img src={SearchIcon} />}
+      />
 
       <ul className={classes.itemsWrapper}>{renderItems}</ul>
 

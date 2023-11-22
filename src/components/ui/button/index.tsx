@@ -5,7 +5,7 @@ const Button: FC<
   PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>
 > = ({ children, ...props }) => {
   return (
-    <button {...props} className={`${props.className} ${classes.submitButton}`}>
+    <button {...props} className={`${props.className} ${classes.button}`}>
       {children}
     </button>
   );

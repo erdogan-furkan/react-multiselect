@@ -1,4 +1,4 @@
-import MultiSelect from "./components/ui/multi-select";
+import MultiSelect from "@/components/ui/multi-select";
 import classes from "./styles.module.scss";
 
 function App() {
@@ -6,9 +6,9 @@ function App() {
     "Edebiyat &amp; Romanlar",
     "Gerilim filmleri",
     "Çocuk kitapları",
-  ]
+  ];
 
-  const regulatedData = data.map(item => ({value: item, label: item}))
+  const regulatedData = data.map((item) => ({ value: item, label: item }));
 
   return (
     <div className={classes.wrapper}>
