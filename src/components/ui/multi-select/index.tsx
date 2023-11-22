@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import classes from "./styles.module.scss"
+import classes from "./styles.module.scss";
 
 type Item = {
   value: string;
@@ -16,7 +16,7 @@ const MultiSelect: FC<Props> = ({ items, title }) => {
 
   const handleOnClickItem = (value: Item["value"]) => [
     setSelectedItems((currentSelectedItems) => {
-      const selectedItems = [...currentSelectedItems]
+      const selectedItems = [...currentSelectedItems];
       const currentItemIndex = selectedItems.indexOf(value);
 
       if (currentItemIndex === -1) {
@@ -41,10 +41,12 @@ const MultiSelect: FC<Props> = ({ items, title }) => {
     return (
       <li
         key={item.value}
-        className={`${isSelectedItem && "selected"}`}
+        className={`${classes.item} ${isSelectedItem && classes.selected}`}
         onClick={handleOnClickItem.bind(this, item.value)}
       >
-        <span></span>
+        <div className={classes.checkbox}>
+          <span className={classes.checkboxTic}></span>
+        </div>
         <p>{item.label}</p>
       </li>
     );

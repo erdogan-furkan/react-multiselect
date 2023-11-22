@@ -19,6 +19,9 @@
   padding: 0;
   max-height: 10rem;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
   /* Firefox */
   scrollbar-width: 10px;
@@ -35,5 +38,41 @@
 
   &::-webkit-scrollbar-track {
     background-color: var(--scroll);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+
+  .checkbox {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+
+    .checkboxTic {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      background-color: var(--primary);
+      transition: 0.1s;
+    }
+  }
+
+  &.selected {
+    color: var(--primary);
+
+    .checkboxTic {
+      width: 0.70rem;
+      height: 0.70rem;
+    }
   }
 }
