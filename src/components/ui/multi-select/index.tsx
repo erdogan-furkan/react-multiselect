@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import classes from "./styles.module.scss"
 
 type Item = {
   value: string;
@@ -7,27 +8,29 @@ type Item = {
 
 interface Props {
   items: Array<Item>;
+  title: string;
 }
 
-const MultiSelect: FC<Props> = ({ items }) => {
+const MultiSelect: FC<Props> = ({ items, title }) => {
   const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>([]);
 
   const handleOnClickItem = (value: Item["value"]) => [
     setSelectedItems((currentSelectedItems) => {
-      const currentItemIndex = currentSelectedItems.indexOf(value);
+      const selectedItems = [...currentSelectedItems]
+      const currentItemIndex = selectedItems.indexOf(value);
 
       if (currentItemIndex === -1) {
-        currentSelectedItems.push(value);
+        selectedItems.push(value);
       } else {
-        currentSelectedItems.splice(currentItemIndex, 1);
+        selectedItems.splice(currentItemIndex, 1);
       }
 
-      return currentSelectedItems;
+      return selectedItems;
     }),
   ];
 
   const sortedItems = items.sort((a, b) => {
-    if (selectedItems.includes(a.value) || selectedItems.includes(b.value))
+    if (selectedItems.includes(a.value) && !selectedItems.includes(b.value))
       return -1;
     else return 1;
   });
@@ -48,8 +51,9 @@ const MultiSelect: FC<Props> = ({ items }) => {
   });
 
   return (
-    <div>
-      <ul>{renderItems}</ul>
+    <div className={classes.wrapper}>
+      <h1 className={classes.title}>{title}</h1>
+      <ul className={classes.itemsWrapper}>{renderItems}</ul>
     </div>
   );
 };

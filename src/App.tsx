@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className={classes.wrapper}>
-      <MultiSelect items={regulatedData} />
+      <MultiSelect items={regulatedData} title="Kategoriler" />
     </div>
   );
 }

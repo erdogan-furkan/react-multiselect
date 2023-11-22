@@ -1,4 +1,14 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+}
+
+:root {
+  --primary: #3064D0;
+  --secondary: #F8F8F8;
+  --background: #FFFFFF;
+  --text: #000000;
+  --border: #C6C3BE;
+  --scroll: #E9E7E8;
 }
