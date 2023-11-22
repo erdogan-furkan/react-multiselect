@@ -9,9 +9,10 @@ type Item = {
 interface Props {
   items: Array<Item>;
   title: string;
+  buttonText?: string
 }
 
-const MultiSelect: FC<Props> = ({ items, title }) => {
+const MultiSelect: FC<Props> = ({ items, title, buttonText }) => {
   const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>([]);
 
   const handleOnClickItem = (value: Item["value"]) => [
@@ -55,7 +56,12 @@ const MultiSelect: FC<Props> = ({ items, title }) => {
   return (
     <div className={classes.wrapper}>
       <h1 className={classes.title}>{title}</h1>
+
       <ul className={classes.itemsWrapper}>{renderItems}</ul>
+
+      <button className={classes.submitButton}>
+        {buttonText ?? "Ara"}
+      </button>
     </div>
   );
 };
