@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import classes from "./styles.module.scss";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
@@ -18,6 +18,8 @@ interface Props {
 
 const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
   const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>([]);
+  const searchFilterRef = useRef<HTMLInputElement>(null);
+  const [filter, setFilter] = useState("");
 
   const handleOnClickItem = (value: Item["value"]) => [
     setSelectedItems((currentSelectedItems) => {
@@ -34,13 +36,21 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
     }),
   ];
 
+  const handleOnClickSearchButton = () => {
+    setFilter(searchFilterRef.current?.value ?? "");
+  };
+
   const sortedItems = items.sort((a, b) => {
     if (selectedItems.includes(a.value) && !selectedItems.includes(b.value))
       return -1;
     else return 1;
   });
 
-  const renderItems = sortedItems.map((item) => {
+  const filteredItems = sortedItems.filter((item) =>
+    item.label.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const renderItems = filteredItems.map((item) => {
     const isSelectedItem = selectedItems.includes(item.value);
 
     return (
@@ -62,13 +72,19 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
       <h1 className={classes.title}>{title}</h1>
 
       <Input
+        ref={searchFilterRef}
         placeholder={searchText ?? "Kategori ara..."}
         icon={<img src={SearchIcon} />}
       />
 
       <ul className={classes.itemsWrapper}>{renderItems}</ul>
 
-      <Button className={classes.submitButton}>{buttonText ?? "Ara"}</Button>
+      <Button
+        className={classes.submitButton}
+        onClick={handleOnClickSearchButton}
+      >
+        {buttonText ?? "Ara"}
+      </Button>
     </div>
   );
 };
