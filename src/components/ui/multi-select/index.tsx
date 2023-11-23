@@ -41,12 +41,14 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
     setFilter(searchFilterRef.current?.value ?? "");
   };
 
-  const cleanData = removeDuplicateValues(items)
+  const cleanData = removeDuplicateValues(items);
 
   const sortedItems = cleanData.sort((a, b) => {
     if (selectedItems.includes(a.value) && !selectedItems.includes(b.value))
       return -1;
-    else return 1;
+    if (selectedItems.includes(b.value) && !selectedItems.includes(a.value))
+      return 1;
+    else return a.value.localeCompare(b.value);
   });
 
   const filteredItems = sortedItems.filter(
