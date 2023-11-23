@@ -4,6 +4,8 @@ import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import SearchIcon from "@/assets/search.svg";
 import { removeDuplicateValues } from "@/lib/utils";
+import { getFromLS, saveToLS } from "@/lib/ls";
+import { MULTISELECT_SELECTED_KEY } from "@/constants";
 
 export type Item = {
   value: string;
@@ -18,7 +20,7 @@ interface Props {
 }
 
 const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
-  const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>([]);
+  const [selectedItems, setSelectedItems] = useState<Array<Item["value"]>>(getFromLS(MULTISELECT_SELECTED_KEY) ?? []);
   const searchFilterRef = useRef<HTMLInputElement>(null);
   const [filter, setFilter] = useState("");
 
@@ -32,6 +34,8 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
       } else {
         selectedItems.splice(currentItemIndex, 1);
       }
+
+      saveToLS(MULTISELECT_SELECTED_KEY, selectedItems)
 
       return selectedItems;
     }),
@@ -57,7 +61,7 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
       selectedItems.includes(item.value)
   );
 
-  const renderItems = filteredItems.map((item) => {
+  const renderItems = filteredItems.length ? filteredItems.map((item) => {
     const isSelectedItem = selectedItems.includes(item.value);
 
     return (
@@ -72,7 +76,7 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
         <p>{item.label}</p>
       </li>
     );
-  });
+  }) : "Sonuç bulunamadı.";
 
   return (
     <div className={classes.wrapper}>
