@@ -46,8 +46,10 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
     else return 1;
   });
 
-  const filteredItems = sortedItems.filter((item) =>
-    item.label.toLowerCase().includes(filter.toLowerCase())
+  const filteredItems = sortedItems.filter(
+    (item) =>
+      item.label.toLowerCase().includes(filter.toLowerCase()) ||
+      selectedItems.includes(item.value)
   );
 
   const renderItems = filteredItems.map((item) => {
