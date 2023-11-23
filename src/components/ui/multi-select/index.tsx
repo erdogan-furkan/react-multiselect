@@ -3,8 +3,9 @@ import classes from "./styles.module.scss";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import SearchIcon from "@/assets/search.svg";
+import { removeDuplicateValues } from "@/lib/utils";
 
-type Item = {
+export type Item = {
   value: string;
   label: string;
 };
@@ -40,7 +41,9 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
     setFilter(searchFilterRef.current?.value ?? "");
   };
 
-  const sortedItems = items.sort((a, b) => {
+  const cleanData = removeDuplicateValues(items)
+
+  const sortedItems = cleanData.sort((a, b) => {
     if (selectedItems.includes(a.value) && !selectedItems.includes(b.value))
       return -1;
     else return 1;
