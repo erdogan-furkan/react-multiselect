@@ -75,6 +75,7 @@ const MultiSelect: FC<Props> = ({ items, title, buttonText, searchText }) => {
         ref={searchFilterRef}
         placeholder={searchText ?? "Kategori ara..."}
         icon={<img src={SearchIcon} />}
+        onClear={() => setFilter("")}
       />
 
       <ul className={classes.itemsWrapper}>{renderItems}</ul>
