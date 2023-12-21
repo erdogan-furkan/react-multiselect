@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("/items.json");
+      const response = await fetch("items.json");
 
       if (!response.ok) {
         return window.alert("Bir hata ile karşılaşıldı!");
